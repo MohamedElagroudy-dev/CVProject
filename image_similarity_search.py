@@ -22,9 +22,10 @@ import show_results
 # ─────────────────────────────────────────
 DATASET_PATH = "dataset"        # folder that contains your images
 SAVE_PATH    = "model"          # folder to save computed data
-K            = 400              # number of visual words (keep low for slow PC)
-MAX_IMAGES   = 300             # max images to load (keep low for slow PC)
-IMAGE_SIZE   = (256, 256)       # resize all images to this before processing
+K            = 2000             # number of visual words (keep low for slow PC)
+MAX_IMAGES   = 1000             # max images to load (keep low for slow PC)
+#IMAGE_SIZE = (512, 512)  
+IMAGE_SIZE   = (256, 256)     # resize all images to this before processing
 TOP_N        = 5                # number of search results to show
 
 
@@ -66,12 +67,12 @@ def load_images(dataset_path, max_images=MAX_IMAGES, size=IMAGE_SIZE):
 def extract_sift_descriptors(images):
     print("\n[2] Extracting SIFT descriptors...")
     sift = cv2.SIFT_create(
-        nfeatures=300,   # max keypoints per image — keep low for speed
-        nOctaveLayers=3,
-        contrastThreshold=0.04,
-        edgeThreshold=10,
-        sigma=1.6
-    )
+    nfeatures=1000,
+    nOctaveLayers=5,
+    contrastThreshold=0.02,
+    edgeThreshold=15,
+    sigma=1.2
+)
 
     all_descriptors = []   # one flat list of all descriptors (for K-Means)
     per_image_desc  = []   # list of descriptor arrays, one per image
